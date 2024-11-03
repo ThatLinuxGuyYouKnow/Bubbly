@@ -5,14 +5,14 @@ import 'package:bubbly/widgets/buttons.dart';
 import 'package:bubbly/widgets/texts.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignIn> createState() => _SignInState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignInState extends State<SignIn> {
   bool passwordMadeVisible = false;
   final ScrollController _scrollController = ScrollController();
 

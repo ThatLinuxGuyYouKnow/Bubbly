@@ -1,3 +1,5 @@
+import 'package:bubbly/auth/signin.dart';
+import 'package:bubbly/auth/signup.dart';
 import 'package:bubbly/welcomeScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +19,14 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
+        initialRoute: '/',
+        routes: {
+          // When navigating to the "/" route, build the FirstScreen widget.
+          // '/': (context) => const FirstScreen(),
+          // When navigating to the "/second" route, build the SecondScreen widget.
+          '/signup': (context) => SignUp(),
+          '/signin': (context) => SignIn()
+        },
         home: WelcomeScreen());
   }
 }
