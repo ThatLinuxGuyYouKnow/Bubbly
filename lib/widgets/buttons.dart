@@ -11,7 +11,7 @@ class StandardButton extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
-        onButtonTap;
+        onButtonTap();
       },
       child: Container(
         height: screenHeight * 0.07,

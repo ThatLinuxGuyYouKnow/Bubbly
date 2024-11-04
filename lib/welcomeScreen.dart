@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bubbly/auth/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bubbly/auth/signup.dart';
@@ -137,28 +138,33 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.02),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Been here before?',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/signin');
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Been here before?',
+                            style: GoogleFonts.plusJakartaSans(
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        SizedBox(
+                          width: screenWidth * 0.02,
+                        ),
+                        Text(
+                          'Get Back In',
                           style: GoogleFonts.plusJakartaSans(
+                            decoration: TextDecoration.underline,
                             color: Colors.black,
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
-                          )),
-                      SizedBox(
-                        width: screenWidth * 0.02,
-                      ),
-                      Text(
-                        'Get Back In',
-                        style: GoogleFonts.plusJakartaSans(
-                          decoration: TextDecoration.underline,
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

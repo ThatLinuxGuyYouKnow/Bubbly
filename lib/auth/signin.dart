@@ -1,3 +1,4 @@
+import 'package:bubbly/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
 import 'package:bubbly/widgets/backButton.dart';
@@ -15,7 +16,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   bool passwordMadeVisible = false;
   final ScrollController _scrollController = ScrollController();
-
+  final auth = Auth();
   @override
   void dispose() {
     _scrollController.dispose();
@@ -26,6 +27,9 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final TextEditingController passwordController = TextEditingController();
+
+    final TextEditingController usernameController = TextEditingController();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -34,25 +38,41 @@ class _SignInState extends State<SignIn> {
         physics: const ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            expandedHeight: screenHeight * 0.15,
+            expandedHeight: screenHeight * 0.2,
             pinned: true,
             backgroundColor: Colors.white,
             elevation: 0,
             leadingWidth: screenWidth * 0.23,
             leading: Padding(
-              padding: EdgeInsets.only(left: screenWidth * 0.01),
+              padding: EdgeInsets.only(left: screenWidth * 0.02),
               child: const CustomBackButton(),
             ),
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1.0,
               titlePadding: EdgeInsets.only(
                 left: screenWidth * 0.05,
-                bottom: 16,
               ),
-              title: StandardText(
-                textContent: 'Sign In',
-                textFontSize: 35,
-                textWeight: FontWeight.bold,
+              title: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  StandardText(
+                    textContent: 'Sign In',
+                    textFontSize: 35,
+                    textWeight: FontWeight.bold,
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
+                  Text(
+                    'Welcome back to the hive !',
+                    style: TextStyle(
+                      color: Colors.purple,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -65,22 +85,24 @@ class _SignInState extends State<SignIn> {
                   SizedBox(height: screenHeight * 0.06),
                   StandardText(
                     textContent: 'Username',
-                    textFontSize: 25,
+                    textFontSize: 22,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(height: screenHeight * .02),
                   StandardTextEditingField(
+                    controller: usernameController,
                     valueValidator: (value) {},
                     hintText: 'Email',
                   ),
                   SizedBox(height: screenHeight * .05),
                   StandardText(
                     textContent: 'Password',
-                    textFontSize: 25,
+                    textFontSize: 22,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(height: screenHeight * .02),
                   StandardTextEditingField(
+                    controller: passwordController,
                     trailingWidget: GestureDetector(
                       onTap: () => setState(() {
                         passwordMadeVisible = !passwordMadeVisible;
@@ -101,31 +123,39 @@ class _SignInState extends State<SignIn> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       StandardButton(
-                        onButtonTap: () {},
-                        buttonTitle: 'Get Started',
+                        onButtonTap: () {
+                          auth.signIn(
+                              username: usernameController.text.trim(),
+                              password: passwordController.text.trim());
+                        },
+                        buttonTitle: 'Get Back In',
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: screenHeight * 0.04),
+                  SizedBox(height: screenHeight * 0.02),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/signup'),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Already have an account ?'),
+                        Text(
+                          'Dont have an account?',
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 16,
+                          ),
+                        ),
                         SizedBox(
                           width: screenWidth * 0.02,
                         ),
-                        Text(
-                          'Get Back In',
-                          style: GoogleFonts.plusJakartaSans(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline),
-                        ),
+                        Text('Join Us! ',
+                            style: GoogleFonts.plusJakartaSans(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.purple))
                       ],
                     ),
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
+                  )
                 ],
               ),
             ),

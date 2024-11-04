@@ -34,25 +34,41 @@ class _SignUpState extends State<SignUp> {
         physics: const ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            expandedHeight: screenHeight * 0.15,
+            expandedHeight: screenHeight * 0.2,
             pinned: true,
             backgroundColor: Colors.white,
             elevation: 0,
             leadingWidth: screenWidth * 0.23,
             leading: Padding(
-              padding: EdgeInsets.only(left: screenWidth * 0.01),
+              padding: EdgeInsets.only(left: screenWidth * 0.02),
               child: const CustomBackButton(),
             ),
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1.0,
               titlePadding: EdgeInsets.only(
                 left: screenWidth * 0.05,
-                bottom: 16,
               ),
-              title: StandardText(
-                textContent: 'Sign Up',
-                textFontSize: 35,
-                textWeight: FontWeight.bold,
+              title: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  StandardText(
+                    textContent: 'Sign Up',
+                    textFontSize: 35,
+                    textWeight: FontWeight.bold,
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
+                  Text(
+                    'Join the buzz, share your story !',
+                    style: TextStyle(
+                      color: Colors.purple,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -65,7 +81,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: screenHeight * 0.06),
                   StandardText(
                     textContent: 'Username',
-                    textFontSize: 25,
+                    textFontSize: 22,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(height: screenHeight * .02),
@@ -76,7 +92,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: screenHeight * .05),
                   StandardText(
                     textContent: 'Password',
-                    textFontSize: 25,
+                    textFontSize: 22,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(height: screenHeight * .02),
@@ -89,7 +105,7 @@ class _SignUpState extends State<SignUp> {
                         passwordMadeVisible
                             ? Icons.visibility
                             : Icons.visibility_off,
-                        color: Colors.grey,
+                        color: Colors.blue,
                       ),
                     ),
                     valueValidator: (value) {},
@@ -106,26 +122,33 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: screenHeight * 0.04),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Already have an account ?'),
-                        SizedBox(
-                          width: screenWidth * 0.02,
-                        ),
-                        Text(
-                          'Get Back In',
-                          style: GoogleFonts.plusJakartaSans(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline),
-                        ),
-                      ],
-                    ),
-                  ),
                   SizedBox(height: screenHeight * 0.02),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, '/signin'),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Already have an account?',
+                              style: GoogleFonts.plusJakartaSans(
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(
+                              width: screenWidth * 0.02,
+                            ),
+                            Text('Dive Back in! ',
+                                style: GoogleFonts.plusJakartaSans(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline))
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
