@@ -124,9 +124,14 @@ class _SignInState extends State<SignIn> {
                     children: [
                       StandardButton(
                         onButtonTap: () {
-                          auth.signIn(
-                              username: usernameController.text.trim(),
-                              password: passwordController.text.trim());
+                          try {
+                            auth.signIn(
+                                username: usernameController.text.trim(),
+                                password: passwordController.text.trim());
+                          } catch (error) {
+                            print(error.toString());
+                          }
+                          Navigator.pushNamed(context, '/mainchat');
                         },
                         buttonTitle: 'Get Back In',
                       ),

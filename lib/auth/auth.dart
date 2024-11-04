@@ -13,7 +13,7 @@ Future<String> getDeviceID() async {
 class Auth {
   signIn({required String username, required String password}) {
     String DeviceID = getDeviceID().toString();
-    print('.............................................');
+    print('.......................log...............');
     print('sign in attempted');
     print(DeviceID);
   }

@@ -12,10 +12,10 @@ class ChatMain extends StatefulWidget {
   const ChatMain({super.key});
 
   @override
-  State<ChatMain> createState() => _ChatMainState();
+  State createState() => _ChatMainState();
 }
 
-class _ChatMainState extends State<ChatMain> {
+class _ChatMainState extends State {
   final List<Map<String, String>> _sampleChatPreviews = [
     {
       'title': 'John Doe',
@@ -27,13 +27,14 @@ class _ChatMainState extends State<ChatMain> {
     },
     {
       'title': 'Michael Johnson',
-      'subtitle': 'Lets catch up later today.',
+      'subtitle': 'Let’s catch up later today.',
     },
     {
       'title': 'Sarah Williams',
-      'subtitle': 'Im running late, sorry!',
+      'subtitle': 'I’m running late, sorry!',
     },
   ];
+
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -54,37 +55,41 @@ class _ChatMainState extends State<ChatMain> {
         physics: const ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             expandedHeight: screenHeight * 0.2,
             pinned: true,
             backgroundColor: Colors.white,
             elevation: 0,
-            leadingWidth: screenWidth * 0.23,
-            leading: Padding(
-              padding: EdgeInsets.only(left: screenWidth * 0.02),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [OptionButton(onButtonPressed: () {})],
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(right: screenWidth * 0.05),
+                child: OptionButton(onButtonPressed: () {}),
               ),
-            ),
+            ],
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1.0,
               titlePadding: EdgeInsets.only(
                 left: screenWidth * 0.05,
+                bottom: screenHeight * 0.02,
               ),
               title: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  StandardText(
-                    textContent: 'Chats',
-                    textFontSize: 35,
-                    textWeight: FontWeight.bold,
+                  Row(
+                    children: [
+                      StandardText(
+                        textContent: 'Chats',
+                        textFontSize: 35,
+                        textWeight: FontWeight.bold,
+                      ),
+                      SizedBox(width: 8), // Adjust spacing as needed
+                      Icon(Icons.bubble_chart, color: Colors.purple),
+                    ],
                   ),
-                  SizedBox(
-                    height: screenHeight * 0.01,
-                  ),
+                  SizedBox(height: screenHeight * 0.005),
                   Text(
-                    'Welcome back to the hive !',
+                    'Welcome back to the hive!',
                     style: TextStyle(
                       color: Colors.purple,
                       fontSize: 20,
@@ -97,7 +102,10 @@ class _ChatMainState extends State<ChatMain> {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+              padding: EdgeInsets.only(
+                  left: screenWidth * 0.06,
+                  right: screenWidth * 0.06,
+                  top: screenHeight * 0.02),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: _sampleChatPreviews.map((preview) {

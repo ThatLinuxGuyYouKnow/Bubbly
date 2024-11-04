@@ -1,5 +1,6 @@
 import 'package:bubbly/auth/signin.dart';
 import 'package:bubbly/auth/signup.dart';
+import 'package:bubbly/chat_main.dart';
 import 'package:bubbly/welcomeScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
           // '/': (context) => const FirstScreen(),
           // When navigating to the "/second" route, build the SecondScreen widget.
           '/signup': (context) => SignUp(),
-          '/signin': (context) => SignIn()
+          '/signin': (context) => SignIn(),
+          '/mainchat': (context) => ChatMain()
         },
         home: WelcomeScreen());
   }
