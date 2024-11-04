@@ -1,4 +1,6 @@
 import 'package:bubbly/auth/auth.dart';
+import 'package:bubbly/widgets/chat_preview_tile.dart';
+import 'package:bubbly/widgets/optionButton.dart';
 import 'package:flutter/material.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
 import 'package:bubbly/widgets/backButton.dart';
@@ -14,9 +16,26 @@ class ChatMain extends StatefulWidget {
 }
 
 class _ChatMainState extends State<ChatMain> {
-  bool passwordMadeVisible = false;
+  final List<Map<String, String>> _sampleChatPreviews = [
+    {
+      'title': 'John Doe',
+      'subtitle': 'Hey, how are you?',
+    },
+    {
+      'title': 'Jane Smith',
+      'subtitle': 'Did you see the latest update?',
+    },
+    {
+      'title': 'Michael Johnson',
+      'subtitle': 'Lets catch up later today.',
+    },
+    {
+      'title': 'Sarah Williams',
+      'subtitle': 'Im running late, sorry!',
+    },
+  ];
   final ScrollController _scrollController = ScrollController();
-  final auth = Auth();
+
   @override
   void dispose() {
     _scrollController.dispose();
@@ -27,9 +46,6 @@ class _ChatMainState extends State<ChatMain> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final TextEditingController passwordController = TextEditingController();
-
-    final TextEditingController usernameController = TextEditingController();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -45,7 +61,10 @@ class _ChatMainState extends State<ChatMain> {
             leadingWidth: screenWidth * 0.23,
             leading: Padding(
               padding: EdgeInsets.only(left: screenWidth * 0.02),
-              child: const CustomBackButton(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [OptionButton(onButtonPressed: () {})],
+              ),
             ),
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1.0,
@@ -81,6 +100,11 @@ class _ChatMainState extends State<ChatMain> {
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                children: _sampleChatPreviews.map((preview) {
+                  return ChatPreviewTile(
+                    BuildContent: [preview['title']!, preview['subtitle']!],
+                  );
+                }).toList(),
               ),
             ),
           ),

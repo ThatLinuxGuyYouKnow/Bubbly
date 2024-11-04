@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ChatPreviewTile extends StatelessWidget {
-  ChatPreviewTile({super.key, this.BuildContent});
-  final List<String>? BuildContent;
+  ChatPreviewTile({super.key, required this.BuildContent});
+  final List<String> BuildContent;
+
+  @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
+      leading: const CircleAvatar(
         backgroundColor: Colors.purple,
       ),
-      title: Text(''),
-      subtitle: Text(''),
+      title: Text(BuildContent[0]),
+      subtitle: Text(BuildContent[1]),
     );
   }
 }
