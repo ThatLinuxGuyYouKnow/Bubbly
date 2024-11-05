@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({super.key});
@@ -30,7 +31,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       child: Container(
         color: Colors.transparent,
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).padding.bottom + 8,
+          bottom: MediaQuery.of(context).padding.bottom + 40,
           top: 8,
           left: screenWidth * 0.075,
           right: screenWidth * 0.075,
@@ -41,13 +42,13 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.purple.withOpacity(0.2),
-                blurRadius: 20,
+                color: Colors.grey.withOpacity(0.8),
+                blurRadius: 30,
               ),
             ],
           ),
-          height: screenHeight * 0.08,
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
+          height: screenHeight * 0.09,
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -93,15 +94,15 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: screenHeight * 0.05,
+        height: screenHeight * 0.06,
         padding: EdgeInsets.symmetric(
-          horizontal: isSelected ? 20.0 : 12.0,
-          vertical: 6.0,
+          horizontal: isSelected ? 50.0 : 12.0,
+          vertical: 3.0,
         ),
         decoration: ShapeDecoration(
           color: isSelected ? Colors.purple : Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(50),
           ),
         ),
         child: Row(
@@ -115,9 +116,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
               SizedBox(width: 5),
               Text(
                 label,
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
+                  fontWeight: FontWeight.bold,
                   color: Colors.white,
-                  fontSize: 14,
+                  fontSize: 16,
                 ),
               ),
             ],
