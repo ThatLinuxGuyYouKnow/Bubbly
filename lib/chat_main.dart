@@ -1,13 +1,5 @@
-import 'package:bubbly/auth/auth.dart';
 import 'package:bubbly/widgets/chat_preview_tile.dart';
-import 'package:bubbly/widgets/customBottomNavBar.dart';
-import 'package:bubbly/widgets/optionButton.dart';
 import 'package:flutter/material.dart';
-import 'package:bubbly/widgets/StandardTextField.dart';
-import 'package:bubbly/widgets/backButton.dart';
-import 'package:bubbly/widgets/buttons.dart';
-import 'package:bubbly/widgets/texts.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ChatMain extends StatefulWidget {
   const ChatMain({super.key});
