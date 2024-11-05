@@ -1,4 +1,7 @@
 import 'package:bubbly/widgets/chat_preview_tile.dart';
+import 'package:bubbly/widgets/customBottomNavBar.dart';
+import 'package:bubbly/widgets/optionButton.dart';
+import 'package:bubbly/widgets/texts.dart';
 import 'package:flutter/material.dart';
 
 class ChatMain extends StatefulWidget {
@@ -42,7 +45,7 @@ class _ChatMainState extends State {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      bottomNavigationBar: CustomButtomNavBar(),
+      bottomNavigationBar: CustomBottomNavBar(),
       backgroundColor: Colors.white,
       body: CustomScrollView(
         controller: _scrollController,
