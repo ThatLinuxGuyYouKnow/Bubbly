@@ -1,3 +1,4 @@
+import 'package:bubbly/auth/set_username.dart';
 import 'package:bubbly/auth/signin.dart';
 import 'package:bubbly/auth/signup.dart';
 import 'package:bubbly/chats/chat_main.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final supabase = Supabase.instance.client;
     final session = supabase.auth.currentUser;
-    session != null ? print('user is authed') : print('who dis?');
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         debugShowMaterialGrid: false,
@@ -38,10 +39,11 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/signup': (context) => SignUp(),
-          '/signin': (context) => SignIn(),
-          '/mainchat': (context) => ChatMain(),
-          '/newchat': (context) => ChatNew()
+          '/signup': (context) => const SignUp(),
+          '/signin': (context) => const SignIn(),
+          '/mainchat': (context) => const ChatMain(),
+          '/newchat': (context) => const ChatNew(),
+          '/setUsername': (context) => SetUsername()
         },
         home: session != null ? ChatMain() : WelcomeScreen());
   }

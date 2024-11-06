@@ -3,8 +3,8 @@ import 'package:bubbly/widgets/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SetEmail extends StatelessWidget {
-  SetEmail({super.key});
+class SetUsername extends StatelessWidget {
+  SetUsername({super.key});
   final ScrollController _scrollController = ScrollController();
 
   Widget build(BuildContext context) {
