@@ -8,8 +8,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   String supabaseUrl = dotenv.env['SUPABASE_URL']!;
-  String supabaseKey = dotenv.env['SUPABASE_KEY']!;
+  String supabaseKey = dotenv.env['SUPABASE_ANON_KEY']!;
   await Supabase.initialize(
     url: supabaseUrl,
     anonKey: supabaseKey,
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final supabase = Supabase.instance.client;
+    final session = supabase.auth.currentUser;
+    session != null ? print('user is authed') : print('who dis?');
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         debugShowMaterialGrid: false,
@@ -34,14 +38,11 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          // When navigating to the "/" route, build the FirstScreen widget.
-          // '/': (context) => const FirstScreen(),
-          // When navigating to the "/second" route, build the SecondScreen widget.
           '/signup': (context) => SignUp(),
           '/signin': (context) => SignIn(),
           '/mainchat': (context) => ChatMain(),
           '/newchat': (context) => ChatNew()
         },
-        home: WelcomeScreen());
+        home: session != null ? ChatMain() : WelcomeScreen());
   }
 }

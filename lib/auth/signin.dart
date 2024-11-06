@@ -128,6 +128,7 @@ class _SignInState extends State<SignIn> {
                             auth.signIn(
                                 username: usernameController.text.trim(),
                                 password: passwordController.text.trim());
+                            print('sign in succesful');
                           } catch (error) {
                             print(error.toString());
                           }

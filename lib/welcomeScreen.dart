@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'package:bubbly/auth/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bubbly/auth/signup.dart';
@@ -13,27 +11,6 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   double buttonBoxShadow = 45;
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    animateButtonShadow();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  void animateButtonShadow() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        buttonBoxShadow = buttonBoxShadow == 45 ? 43 : 45;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +86,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUp()),
+                        MaterialPageRoute(builder: (context) => const SignUp()),
                       );
                     },
                     child: Container(

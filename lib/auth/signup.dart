@@ -1,3 +1,4 @@
+import 'package:bubbly/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
 import 'package:bubbly/widgets/backButton.dart';
@@ -15,7 +16,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   bool passwordMadeVisible = false;
   final ScrollController _scrollController = ScrollController();
-
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   void dispose() {
     _scrollController.dispose();
@@ -26,7 +28,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
+    final auth = Auth();
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -86,6 +88,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   SizedBox(height: screenHeight * .02),
                   StandardTextEditingField(
+                    controller: _usernameController,
                     valueValidator: (value) {},
                     hintText: 'Email',
                   ),
@@ -97,6 +100,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   SizedBox(height: screenHeight * .02),
                   StandardTextEditingField(
+                    controller: _passwordController,
                     trailingWidget: GestureDetector(
                       onTap: () => setState(() {
                         passwordMadeVisible = !passwordMadeVisible;
@@ -117,7 +121,12 @@ class _SignUpState extends State<SignUp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       StandardButton(
-                        onButtonTap: () {},
+                        onButtonTap: () {
+                          print("controller" + _usernameController.text);
+                          auth.signUp(
+                              username: _usernameController.text,
+                              password: _passwordController.text.trim());
+                        },
                         buttonTitle: 'Get Started',
                       ),
                     ],
