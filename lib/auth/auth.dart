@@ -1,5 +1,6 @@
 import 'package:device_info/device_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:get_storage/get_storage.dart';
 
 Future<String> getDeviceID() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -15,14 +16,16 @@ class Auth {
   final supabase = Supabase.instance.client;
 
   Future<void> signIn(
-      {required String username, required String password}) async {
+      {required String email, required String password }) async {
     final session = supabase.auth.currentUser;
     session != null ? print('User is authed') : print('Who dis?');
+    await GetStorage.init();
+    final box = GetStorage();
 
     try {
       // Await the asynchronous sign-in function
       final response = await supabase.auth.signInWithPassword(
-        email: username,
+        email: email,
         password: password,
       );
     } on AuthApiException catch (error) {
@@ -35,19 +38,21 @@ class Auth {
       // Catches any other errors that might occur
       print('Unexpected error: ${error.toString()}');
     }
+    box.write('email', email);
+    box.write('')
   }
 
   /// Use this function to sign up a new user.
   ///
-  /// Takes username and password, already trimmed and validated from the controller.
+  /// Takes email and password, already trimmed and validated from the controller.
   Future<void> signUp(
-      {required String username, required String password}) async {
+      {required String email, required String password}) async {
     print('Sign up triggered');
-    print('should be suername' + username);
+    print('should be suername' + email);
     try {
       // Await the asynchronous sign-up function
       final response = await supabase.auth.signUp(
-        email: username,
+        email: email,
         password: password,
       );
 

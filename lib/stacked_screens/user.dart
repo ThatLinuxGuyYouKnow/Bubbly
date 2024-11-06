@@ -33,7 +33,7 @@ class UserScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   StandardText(
-                    textContent: 'Set up your username',
+                    textContent: 'Profile',
                     textFontSize: 35,
                     textWeight: FontWeight.bold,
                   ),

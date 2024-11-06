@@ -46,7 +46,6 @@ class _ChatMainState extends State {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavBar(),
       backgroundColor: Colors.white,
       body: CustomScrollView(
         controller: _scrollController,

@@ -3,6 +3,7 @@ import 'package:bubbly/auth/signin.dart';
 import 'package:bubbly/auth/signup.dart';
 import 'package:bubbly/chats/chat_main.dart';
 import 'package:bubbly/chats/chat_new.dart';
+import 'package:bubbly/stacked_screens/homeScreen.dart';
 import 'package:bubbly/welcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -45,6 +46,6 @@ class MyApp extends StatelessWidget {
           '/newchat': (context) => const ChatNew(),
           '/setUsername': (context) => SetUsername()
         },
-        home: session != null ? ChatMain() : WelcomeScreen());
+        home: session != null ? HomeScreen() : WelcomeScreen());
   }
 }
