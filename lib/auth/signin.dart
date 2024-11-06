@@ -126,7 +126,7 @@ class _SignInState extends State<SignIn> {
                         onButtonTap: () {
                           try {
                             auth.signIn(
-                                username: _emailController.text.trim(),
+                                email: _emailController.text.trim(),
                                 password: passwordController.text.trim());
                             print('sign in succesful');
                           } catch (error) {
