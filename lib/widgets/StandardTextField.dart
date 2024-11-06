@@ -76,7 +76,7 @@ class _StandardTextEditingFieldState extends State<StandardTextEditingField> {
       alignment: Alignment.center,
       height: screenHeight * 0.075,
       decoration: BoxDecoration(
-        boxShadow: [BoxShadow(blurRadius: 20, color: Colors.grey[50]!)],
+        boxShadow: [BoxShadow(blurRadius: 20, color: Colors.white)],
         border: Border.all(
           color: _getFieldColor(),
           width: 2.5,

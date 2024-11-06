@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:device_info/device_info.dart';
 
 Future<String> getDeviceID() async {

@@ -1,37 +1,22 @@
+import 'package:bubbly/widgets/StandardTextField.dart';
+import 'package:bubbly/widgets/backButton.dart';
+import 'package:bubbly/widgets/buttons.dart';
 import 'package:bubbly/widgets/chat_preview_tile.dart';
 import 'package:bubbly/widgets/customBottomNavBar.dart';
 import 'package:bubbly/widgets/optionButton.dart';
 import 'package:bubbly/widgets/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ChatMain extends StatefulWidget {
-  const ChatMain({super.key});
+class ChatNew extends StatefulWidget {
+  const ChatNew({super.key});
 
   @override
-  State createState() => _ChatMainState();
+  State createState() => _ChatNewState();
 }
 
-class _ChatMainState extends State {
-  final List<Map<String, String>> _sampleChatPreviews = [
-    {
-      'title': 'John Doe',
-      'subtitle': 'Hey, how are you?',
-    },
-    {
-      'title': 'Jane Smith',
-      'subtitle': 'Did you see the latest update?',
-    },
-    {
-      'title': 'Michael Johnson',
-      'subtitle': 'Let’s catch up later today.',
-    },
-    {
-      'title': 'Sarah Williams',
-      'subtitle': 'I’m running late, sorry!',
-    },
-  ];
-
+class _ChatNewState extends State {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -46,7 +31,6 @@ class _ChatMainState extends State {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavBar(),
       backgroundColor: Colors.white,
       body: CustomScrollView(
         controller: _scrollController,
@@ -56,14 +40,12 @@ class _ChatMainState extends State {
             automaticallyImplyLeading: false,
             expandedHeight: screenHeight * 0.2,
             pinned: true,
-            backgroundColor: Colors.purpleAccent.withOpacity(.04),
+            backgroundColor: Colors.purpleAccent.withOpacity(.02),
             elevation: 0,
-            actions: [
-              Padding(
-                padding: EdgeInsets.only(right: screenWidth * 0.05),
-                child: OptionButton(onButtonPressed: () {}),
-              ),
-            ],
+            leading: Padding(
+              padding: EdgeInsets.only(left: screenWidth * 0.02),
+              child: const CustomBackButton(),
+            ),
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1.0,
               titlePadding: EdgeInsets.only(
@@ -76,22 +58,18 @@ class _ChatMainState extends State {
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        Icons.bubble_chart,
-                        color: Colors.purpleAccent,
-                        size: 36,
-                      ),
-                      SizedBox(width: 8),
                       StandardText(
-                        textContent: 'Chats',
+                        textContent: 'New Chat',
                         textFontSize: 35,
                         textWeight: FontWeight.bold,
                       ),
+                      SizedBox(width: 8), // Adjust spacing as needed
+                      Icon(Icons.bubble_chart, color: Colors.purple),
                     ],
                   ),
                   SizedBox(height: screenHeight * 0.005),
                   Text(
-                    'Welcome back to the hive!',
+                    'Reach out to someone new!',
                     style: GoogleFonts.plusJakartaSans(
                       color: Colors.purple,
                       fontSize: 20,
@@ -104,19 +82,38 @@ class _ChatMainState extends State {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(
-                  left: screenWidth * 0.06,
-                  right: screenWidth * 0.06,
-                  top: screenHeight * 0.02),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _sampleChatPreviews.map((preview) {
-                  return ChatPreviewTile(
-                    BuildContent: [preview['title']!, preview['subtitle']!],
-                  );
-                }).toList(),
-              ),
-            ),
+                padding: EdgeInsets.only(
+                    left: screenWidth * 0.06,
+                    right: screenWidth * 0.06,
+                    top: screenHeight * 0.02),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    StandardText(
+                      textContent: 'Enter frens username',
+                      textFontSize: 22,
+                      textWeight: FontWeight.bold,
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    StandardTextEditingField(
+                        valueValidator: (value) {}, hintText: '@admin'),
+                    SizedBox(height: screenHeight * 0.2),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        StandardButton(
+                          onButtonTap: () {},
+                          buttonTitle: 'Start A Converation',
+                        ),
+                      ],
+                    )
+                  ],
+                )),
           ),
         ],
       ),

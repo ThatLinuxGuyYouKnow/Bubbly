@@ -9,13 +9,13 @@ class CustomBottomNavBar extends StatefulWidget {
 }
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  bool navbarItemSearchSelected = false;
+  bool navbarItemNearYouSelected = false;
   bool navbarItemHomeSelected = true;
   bool navbarItemUserSelected = false;
 
   void _selectNavItem(String item) {
     setState(() {
-      navbarItemSearchSelected = item == 'search';
+      navbarItemNearYouSelected = item == 'Near You';
       navbarItemHomeSelected = item == 'home';
       navbarItemUserSelected = item == 'user';
     });
@@ -55,19 +55,24 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
               _buildNavItem(
                 screenWidth: screenWidth,
                 screenHeight: screenHeight,
-                label: 'Search',
-                icon: Icons.search_rounded,
-                isSelected: navbarItemSearchSelected,
-                onTap: () => _selectNavItem('search'),
+                label: 'Near You',
+                icon: Icons.online_prediction,
+                isSelected: navbarItemNearYouSelected,
+                onTap: () {
+                  _selectNavItem('Near You');
+                  Navigator.pushNamed(context, '/newchat');
+                },
               ),
               _buildNavItem(
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-                icon: Icons.add,
-                label: 'New Chat',
-                isSelected: navbarItemHomeSelected,
-                onTap: () => _selectNavItem('home'),
-              ),
+                  screenWidth: screenWidth,
+                  screenHeight: screenHeight,
+                  icon: Icons.add,
+                  label: 'New Chat',
+                  isSelected: navbarItemHomeSelected,
+                  onTap: () {
+                    _selectNavItem('home');
+                    Navigator.pushNamed(context, '/newchat');
+                  }),
               _buildNavItem(
                 label: 'You',
                 screenWidth: screenWidth,
@@ -100,7 +105,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           vertical: 3.0,
         ),
         decoration: ShapeDecoration(
-          color: isSelected ? Colors.purple : Colors.transparent,
+          color: isSelected ? Colors.purpleAccent : Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
