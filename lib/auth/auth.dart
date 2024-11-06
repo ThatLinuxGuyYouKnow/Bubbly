@@ -12,11 +12,12 @@ Future<String> getDeviceID() async {
 ///
 /// contains methods to sign in, sign out and create / sign up a new user
 class Auth {
+  final supabase = Supabase.instance.client;
   signIn({required String username, required String password}) {
-    String DeviceID = getDeviceID().toString();
-    print('.......................log...............');
-    print('sign in attempted');
-    print(DeviceID);
+    supabase.auth.signUp(
+      email: username,
+      password: password,
+    );
   }
 
   /// use this function to sign the user in / create an acount
