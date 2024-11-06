@@ -29,7 +29,7 @@ class _SignInState extends State<SignIn> {
     final screenHeight = MediaQuery.of(context).size.height;
     final TextEditingController passwordController = TextEditingController();
 
-    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController _emailController = TextEditingController();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -84,13 +84,13 @@ class _SignInState extends State<SignIn> {
                 children: [
                   SizedBox(height: screenHeight * 0.06),
                   StandardText(
-                    textContent: 'Username',
+                    textContent: 'Email',
                     textFontSize: 22,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(height: screenHeight * .02),
                   StandardTextEditingField(
-                    controller: usernameController,
+                    controller: _emailController,
                     valueValidator: (value) {},
                     hintText: 'Email',
                   ),
@@ -126,7 +126,7 @@ class _SignInState extends State<SignIn> {
                         onButtonTap: () {
                           try {
                             auth.signIn(
-                                username: usernameController.text.trim(),
+                                username: _emailController.text.trim(),
                                 password: passwordController.text.trim());
                             print('sign in succesful');
                           } catch (error) {

@@ -4,6 +4,7 @@ import 'package:bubbly/widgets/StandardTextField.dart';
 import 'package:bubbly/widgets/backButton.dart';
 import 'package:bubbly/widgets/buttons.dart';
 import 'package:bubbly/widgets/texts.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUp extends StatefulWidget {
@@ -82,7 +83,7 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   SizedBox(height: screenHeight * 0.06),
                   StandardText(
-                    textContent: 'Username',
+                    textContent: 'Email',
                     textFontSize: 22,
                     textWeight: FontWeight.bold,
                   ),
@@ -124,8 +125,10 @@ class _SignUpState extends State<SignUp> {
                         onButtonTap: () {
                           print("controller" + _usernameController.text);
                           auth.signUp(
-                              username: _usernameController.text,
-                              password: _passwordController.text.trim());
+                            username: _usernameController.text,
+                            password: _passwordController.text.trim(),
+                          );
+                          Navigator.pushNamed(context, '/setUsername');
                         },
                         buttonTitle: 'Get Started',
                       ),
