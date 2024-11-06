@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 class SetUsername extends StatelessWidget {
   SetUsername({super.key});
   final ScrollController _scrollController = ScrollController();
-
+//TODO: Implement validation + local data storage of username
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;

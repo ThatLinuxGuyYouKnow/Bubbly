@@ -125,7 +125,7 @@ class _SignUpState extends State<SignUp> {
                         onButtonTap: () {
                           print("controller" + _usernameController.text);
                           auth.signUp(
-                            username: _usernameController.text,
+                            email: _usernameController.text,
                             password: _passwordController.text.trim(),
                           );
                           Navigator.pushNamed(context, '/setUsername');

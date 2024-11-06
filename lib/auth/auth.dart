@@ -1,7 +1,9 @@
+import 'package:bubbly/localHandling/localData.dart';
 import 'package:device_info/device_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:get_storage/get_storage.dart';
 
+///TODO: Implement validation + local data storage of username
 Future<String> getDeviceID() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   String deviceID =
@@ -15,8 +17,7 @@ Future<String> getDeviceID() async {
 class Auth {
   final supabase = Supabase.instance.client;
 
-  Future<void> signIn(
-      {required String email, required String password }) async {
+  Future<void> signIn({required String email, required String password}) async {
     final session = supabase.auth.currentUser;
     session != null ? print('User is authed') : print('Who dis?');
     await GetStorage.init();
@@ -37,18 +38,15 @@ class Auth {
     } catch (error) {
       // Catches any other errors that might occur
       print('Unexpected error: ${error.toString()}');
+      final localData = LocalData();
+      localData.storeEmail(email: email);
     }
-    box.write('email', email);
-    box.write('')
   }
 
   /// Use this function to sign up a new user.
   ///
   /// Takes email and password, already trimmed and validated from the controller.
-  Future<void> signUp(
-      {required String email, required String password}) async {
-    print('Sign up triggered');
-    print('should be suername' + email);
+  Future<void> signUp({required String email, required String password}) async {
     try {
       // Await the asynchronous sign-up function
       final response = await supabase.auth.signUp(
@@ -71,5 +69,7 @@ class Auth {
       // Catches any other errors that might occur
       print('Unexpected error: ${error.toString()}');
     }
+    final localData = LocalData();
+    localData.storeEmail(email: email);
   }
 }
