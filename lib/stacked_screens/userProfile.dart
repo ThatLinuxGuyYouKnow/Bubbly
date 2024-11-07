@@ -1,4 +1,5 @@
 import 'package:bubbly/widgets/StandardTextField.dart';
+import 'package:bubbly/widgets/profileOptionTiles.dart';
 import 'package:bubbly/widgets/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +20,7 @@ class UserScreen extends StatelessWidget {
           SliverAppBar(
             expandedHeight: screenHeight * 0.2,
             pinned: true,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.purpleAccent.withOpacity(.04),
             elevation: 0,
             leadingWidth: screenWidth * 0.23,
             leading: const SizedBox.shrink(),
@@ -41,7 +42,7 @@ class UserScreen extends StatelessWidget {
                     height: screenHeight * 0.01,
                   ),
                   Text(
-                    'Other people will be able to find you with this',
+                    '',
                     style: GoogleFonts.plusJakartaSans(
                       color: Colors.purple,
                       fontSize: 20,
@@ -65,8 +66,11 @@ class UserScreen extends StatelessWidget {
                       textWeight: FontWeight.bold,
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    StandardTextEditingField(
-                        valueValidator: (value) {}, hintText: '@funkylolipop')
+                    ProfileOptionsTile(
+                      title: 'Invite Friends',
+                      onTap: () {},
+                      trailingIcon: Icon(Icons.account_box),
+                    )
                   ] ///////////////
                   ),
             ),

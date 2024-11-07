@@ -3,6 +3,7 @@ import 'package:bubbly/auth/signin.dart';
 import 'package:bubbly/auth/signup.dart';
 import 'package:bubbly/chats/chat_main.dart';
 import 'package:bubbly/chats/chat_new.dart';
+import 'package:bubbly/splash.dart';
 import 'package:bubbly/stacked_screens/homeScreen.dart';
 import 'package:bubbly/welcomeScreen.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final supabase = Supabase.instance.client;
-    final session = supabase.auth.currentUser;
-
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         debugShowMaterialGrid: false,
@@ -44,8 +42,10 @@ class MyApp extends StatelessWidget {
           '/signin': (context) => const SignIn(),
           '/mainchat': (context) => const ChatMain(),
           '/newchat': (context) => const ChatNew(),
-          '/setUsername': (context) => SetUsername()
+          '/setUsername': (context) => SetUsername(),
+          '/homepage': (context) => const HomeScreen(),
+          '/welcomeScreen': (context) => const WelcomeScreen()
         },
-        home: session != null ? HomeScreen() : WelcomeScreen());
+        home: SplashScreen());
   }
 }
