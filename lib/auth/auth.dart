@@ -72,4 +72,8 @@ class Auth {
     final localData = LocalData();
     localData.storeEmail(email: email);
   }
+
+  signOut() async {
+    final response = await supabase.auth.signOut();
+  }
 }

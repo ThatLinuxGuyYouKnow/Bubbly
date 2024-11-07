@@ -3,19 +3,40 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SplashScreen extends StatelessWidget {
-  SplashScreen({super.key});
-  void routeToScreen({final context}) {
-    final supabase = Supabase.instance.client;
-    final session = supabase.auth.currentSession;
-    session != null
-        ? Navigator.pushNamed(context, '/homepage')
-        : Navigator.pushNamed(context, '/welcomeScreen');
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Ensures the timer only starts after the widgets are fully mounted.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer(const Duration(seconds: 3), () {
+        _routeToScreen();
+      });
+    });
   }
 
+  void _routeToScreen() {
+    final supabase = Supabase.instance.client;
+    final session = supabase.auth.currentSession;
+
+    // Navigate to the appropriate screen based on user session status
+    Navigator.pushReplacementNamed(
+      context,
+      session != null ? '/homepage' : '/welcomeScreen',
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    Timer(const Duration(seconds: 3), () => routeToScreen(context: context));
 
     return Scaffold(
       backgroundColor: Colors.purple,
@@ -39,9 +60,9 @@ class SplashScreen extends StatelessWidget {
                     fontSize: 40,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

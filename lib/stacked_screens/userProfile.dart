@@ -1,3 +1,4 @@
+import 'package:bubbly/auth/auth.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
 import 'package:bubbly/widgets/profileOptionTiles.dart';
 import 'package:bubbly/widgets/texts.dart';
@@ -11,6 +12,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final auth = Auth();
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -67,10 +69,31 @@ class UserScreen extends StatelessWidget {
                     ),
                     SizedBox(height: screenHeight * 0.02),
                     ProfileOptionsTile(
+                      title: 'Log out',
+                      onTap: () {
+                        auth.signOut();
+                      },
+                      trailingIcon: Icon(Icons.logout),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    ProfileOptionsTile(
                       title: 'Invite Friends',
                       onTap: () {},
                       trailingIcon: Icon(Icons.account_box),
-                    )
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    ProfileOptionsTile(
+                      title: 'Request your account data',
+                      onTap: () {},
+                      trailingIcon: Icon(Icons.download),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    ProfileOptionsTile(
+                      borderColor: Colors.red,
+                      title: 'Delete Account',
+                      onTap: () {},
+                      trailingIcon: Icon(Icons.cancel),
+                    ),
                   ] ///////////////
                   ),
             ),
