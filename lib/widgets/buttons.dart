@@ -14,7 +14,7 @@ class StandardButton extends StatelessWidget {
         onButtonTap();
       },
       child: Container(
-        height: screenHeight * 0.07,
+        height: screenHeight * 0.08,
         width: screenWidth * 0.8,
         decoration: BoxDecoration(
           boxShadow: [
@@ -31,7 +31,7 @@ class StandardButton extends StatelessWidget {
             buttonTitle,
             style: GoogleFonts.plusJakartaSans(
               color: Colors.white,
-              fontSize: 21,
+              fontSize: 17,
               fontWeight: FontWeight.bold,
             ),
           ),

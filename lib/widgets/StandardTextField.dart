@@ -77,7 +77,7 @@ class _StandardTextEditingFieldState extends State<StandardTextEditingField> {
 
     return Container(
       alignment: Alignment.center,
-      height: screenHeight * 0.075,
+      height: screenHeight * 0.08,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(blurRadius: 20, color: Colors.white)
@@ -86,7 +86,7 @@ class _StandardTextEditingFieldState extends State<StandardTextEditingField> {
           color: _getFieldColor(),
           width: 2.5,
         ),
-        color: Colors.grey[50],
+        color: Colors.white,
         borderRadius: BorderRadius.circular(18.0),
       ),
       child: Padding(
@@ -110,7 +110,7 @@ class _StandardTextEditingFieldState extends State<StandardTextEditingField> {
             hintText: widget.hintText,
             hintStyle: GoogleFonts.plusJakartaSans(
               color: Colors.grey[400],
-              fontSize: 18,
+              fontSize: 14,
             ),
             border: InputBorder.none,
             errorStyle: const TextStyle(height: 0),

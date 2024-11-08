@@ -45,7 +45,7 @@ class ProfileOptionsTile extends StatelessWidget {
             Text(
               title,
               style: GoogleFonts.plusJakartaSans(
-                fontSize: 17,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
               ),

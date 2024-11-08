@@ -1,8 +1,10 @@
 import 'package:bubbly/data/localHandling/supabaseData.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
+import 'package:bubbly/widgets/backButton.dart';
 import 'package:bubbly/widgets/buttons.dart';
 import 'package:bubbly/widgets/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SetUsername extends StatefulWidget {
@@ -16,7 +18,7 @@ class SetUsername extends StatefulWidget {
 class _SetUsernameState extends State<SetUsername> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController usernameController = TextEditingController();
-//TODO: Implement validation + local data storage of username
+
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
@@ -29,9 +31,9 @@ class _SetUsernameState extends State<SetUsername> {
         physics: const ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            expandedHeight: screenHeight * 0.2,
+            expandedHeight: screenHeight * 0.22,
             pinned: true,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.purpleAccent.withOpacity(.04),
             elevation: 0,
             leadingWidth: screenWidth * 0.23,
             leading: SizedBox.shrink(),
@@ -46,17 +48,17 @@ class _SetUsernameState extends State<SetUsername> {
                 children: [
                   StandardText(
                     textContent: 'Set up your username',
-                    textFontSize: 35,
+                    textFontSize: 22,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(
                     height: screenHeight * 0.01,
                   ),
                   Text(
-                    'Other people will be able to find you with this',
+                    'Make it nice, make it you !',
                     style: GoogleFonts.plusJakartaSans(
                       color: Colors.purple,
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -70,9 +72,9 @@ class _SetUsernameState extends State<SetUsername> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: screenHeight * 0.02),
+                    SizedBox(height: screenHeight * 0.05),
                     StandardText(
-                      textContent: 'Username',
+                      textContent: 'Your Username',
                       textFontSize: 15,
                       textWeight: FontWeight.bold,
                     ),
@@ -81,16 +83,21 @@ class _SetUsernameState extends State<SetUsername> {
                         controller: usernameController,
                         valueValidator: (value) {},
                         hintText: '@funkylolipop'),
-                    SizedBox(height: screenHeight * .1),
-                    StandardButton(
-                        onButtonTap: () {
-                          print(usernameController.text +
-                              'this should *NOT* be null');
-                          supabasedata.registerNewUsername(
-                              username: usernameController.text,
-                              email: widget.email);
-                        },
-                        buttonTitle: 'Register')
+                    SizedBox(height: screenHeight * .3),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        StandardButton(
+                            onButtonTap: () {
+                              print(usernameController.text +
+                                  'this should *NOT* be null');
+                              supabasedata.registerNewUsername(
+                                  username: usernameController.text,
+                                  email: widget.email);
+                            },
+                            buttonTitle: 'Register'),
+                      ],
+                    )
                   ] ///////////////
                   ),
             ),

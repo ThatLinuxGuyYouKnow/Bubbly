@@ -40,7 +40,7 @@ class _SignUpState extends State<SignUp> {
           SliverAppBar(
             expandedHeight: screenHeight * 0.22,
             pinned: true,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.purpleAccent.withOpacity(.04),
             elevation: 0,
             leadingWidth: screenWidth * 0.23,
             leading: Padding(
@@ -85,7 +85,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: screenHeight * 0.06),
                   StandardText(
                     textContent: 'Email',
-                    textFontSize: 22,
+                    textFontSize: 18,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(height: screenHeight * .02),
@@ -97,7 +97,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: screenHeight * .05),
                   StandardText(
                     textContent: 'Password',
-                    textFontSize: 22,
+                    textFontSize: 18,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(height: screenHeight * .02),
@@ -153,7 +153,7 @@ class _SignUpState extends State<SignUp> {
                             Text(
                               'Already have an account?',
                               style: GoogleFonts.plusJakartaSans(
-                                fontSize: 16,
+                                fontSize: 12,
                               ),
                             ),
                             SizedBox(
@@ -161,7 +161,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Text('Dive Back in! ',
                                 style: GoogleFonts.plusJakartaSans(
-                                    fontSize: 16,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline))
                           ],

@@ -23,7 +23,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
     return Material(
       child: Container(
-        color: Colors.transparent,
+        color: Colors.white,
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).padding.bottom +
               35, // Increased bottom padding
@@ -63,7 +63,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 icon: Icons.add,
                 label: 'New Chat',
                 isSelected: widget.currentIndex == 1,
-                onTap: () => widget.onTap(1),
+                onTap: () => Navigator.pushNamed(context, '/newchat'),
               ),
               _buildNavItem(
                 screenWidth: screenWidth,

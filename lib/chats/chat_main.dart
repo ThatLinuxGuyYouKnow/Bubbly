@@ -83,7 +83,7 @@ class _ChatMainState extends State {
                       SizedBox(width: 8),
                       StandardText(
                         textContent: 'Chats',
-                        textFontSize: 35,
+                        textFontSize: 25,
                         textWeight: FontWeight.bold,
                       ),
                     ],
@@ -93,7 +93,7 @@ class _ChatMainState extends State {
                     'Welcome back to the hive!',
                     style: GoogleFonts.plusJakartaSans(
                       color: Colors.purple,
-                      fontSize: 20,
+                      fontSize: 17,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

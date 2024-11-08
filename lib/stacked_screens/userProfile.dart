@@ -41,7 +41,7 @@ class UserScreen extends StatelessWidget {
                 children: [
                   StandardText(
                     textContent: 'Profile',
-                    textFontSize: 35,
+                    textFontSize: 25,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(
@@ -51,7 +51,7 @@ class UserScreen extends StatelessWidget {
                     username,
                     style: GoogleFonts.plusJakartaSans(
                       color: Colors.purple,
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
