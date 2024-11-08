@@ -21,6 +21,8 @@ class _ChatNewState extends State {
     super.dispose();
   }
 
+  final bool userSelected = false;
+  String? contactNewUsername;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -96,8 +98,14 @@ class _ChatNewState extends State {
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    StandardTextEditingField(
-                        valueValidator: (value) {}, hintText: '@admin'),
+                    GestureDetector(
+                        child: userSelected
+                            ? Container(
+                                child: Text(contactNewUsername ?? ""),
+                              )
+                            : StandardTextEditingField(
+                                valueValidator: (value) {},
+                                hintText: '@admin')),
                     SizedBox(height: screenHeight * 0.2),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

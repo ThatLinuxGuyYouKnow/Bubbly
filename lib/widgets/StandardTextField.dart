@@ -12,6 +12,7 @@ class StandardTextEditingField extends StatefulWidget {
     this.onSubmitted,
     this.controller,
     this.trailingWidget,
+    this.onEdited,
   });
 
   final Function(String) valueValidator;
@@ -22,6 +23,7 @@ class StandardTextEditingField extends StatefulWidget {
   final Function(String)? onSubmitted;
   final TextEditingController? controller;
   final Widget? trailingWidget;
+  final VoidCallbackAction? onEdited;
 
   @override
   State<StandardTextEditingField> createState() =>
