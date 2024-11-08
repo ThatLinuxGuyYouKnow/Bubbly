@@ -6,7 +6,6 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-        radius: 20,
         backgroundColor:
             Colors.purple.withOpacity(0.1), // Semi-transparent purple
         child: BackButton(color: Colors.purple));

@@ -1,4 +1,4 @@
-import 'package:bubbly/localHandling/localData.dart';
+import 'package:bubbly/data/localHandling/localData.dart';
 import 'package:device_info/device_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:get_storage/get_storage.dart';
@@ -48,6 +48,7 @@ class Auth {
   /// Takes email and password, already trimmed and validated from the controller.
   Future<void> signUp({required String email, required String password}) async {
     try {
+      print(email + "email sent to supabase");
       // Await the asynchronous sign-up function
       final response = await supabase.auth.signUp(
         email: email,
@@ -75,5 +76,7 @@ class Auth {
 
   signOut() async {
     final response = await supabase.auth.signOut();
+    final data = LocalData();
+    data.deleteUserData();
   }
 }

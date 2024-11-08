@@ -1,4 +1,5 @@
 import 'package:bubbly/auth/auth.dart';
+import 'package:bubbly/data/localHandling/localData.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
 import 'package:bubbly/widgets/profileOptionTiles.dart';
 import 'package:bubbly/widgets/texts.dart';
@@ -12,6 +13,9 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final localdata = LocalData();
+    String username = localdata.getUsername();
+    String email = localdata.getUserEmail();
     final auth = Auth();
     return Scaffold(
       backgroundColor: Colors.white,
@@ -44,7 +48,7 @@ class UserScreen extends StatelessWidget {
                     height: screenHeight * 0.01,
                   ),
                   Text(
-                    '',
+                    username,
                     style: GoogleFonts.plusJakartaSans(
                       color: Colors.purple,
                       fontSize: 20,

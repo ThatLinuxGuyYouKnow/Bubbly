@@ -1,15 +1,27 @@
+import 'package:bubbly/data/localHandling/supabaseData.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
+import 'package:bubbly/widgets/buttons.dart';
 import 'package:bubbly/widgets/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SetUsername extends StatelessWidget {
-  SetUsername({super.key});
+class SetUsername extends StatefulWidget {
+  String email;
+  SetUsername({super.key, required this.email});
+
+  @override
+  State<SetUsername> createState() => _SetUsernameState();
+}
+
+class _SetUsernameState extends State<SetUsername> {
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController usernameController = TextEditingController();
 //TODO: Implement validation + local data storage of username
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final supabasedata = SupabaseData();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -66,7 +78,19 @@ class SetUsername extends StatelessWidget {
                     ),
                     SizedBox(height: screenHeight * 0.02),
                     StandardTextEditingField(
-                        valueValidator: (value) {}, hintText: '@funkylolipop')
+                        controller: usernameController,
+                        valueValidator: (value) {},
+                        hintText: '@funkylolipop'),
+                    SizedBox(height: screenHeight * .1),
+                    StandardButton(
+                        onButtonTap: () {
+                          print(usernameController.text +
+                              'this should *NOT* be null');
+                          supabasedata.registerNewUsername(
+                              username: usernameController.text,
+                              email: widget.email);
+                        },
+                        buttonTitle: 'Register')
                   ] ///////////////
                   ),
             ),

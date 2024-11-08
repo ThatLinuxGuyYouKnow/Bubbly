@@ -1,4 +1,5 @@
 import 'package:bubbly/auth/auth.dart';
+import 'package:bubbly/auth/set_username.dart';
 import 'package:flutter/material.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
 import 'package:bubbly/widgets/backButton.dart';
@@ -37,7 +38,7 @@ class _SignUpState extends State<SignUp> {
         physics: const ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            expandedHeight: screenHeight * 0.2,
+            expandedHeight: screenHeight * 0.22,
             pinned: true,
             backgroundColor: Colors.white,
             elevation: 0,
@@ -57,7 +58,7 @@ class _SignUpState extends State<SignUp> {
                 children: [
                   StandardText(
                     textContent: 'Sign Up',
-                    textFontSize: 35,
+                    textFontSize: 25,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(
@@ -65,9 +66,9 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Text(
                     'Join the buzz, share your story !',
-                    style: TextStyle(
+                    style: GoogleFonts.plusJakartaSans(
                       color: Colors.purple,
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -128,7 +129,14 @@ class _SignUpState extends State<SignUp> {
                             email: _usernameController.text,
                             password: _passwordController.text.trim(),
                           );
-                          Navigator.pushNamed(context, '/setUsername');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => SetUsername(
+                                email: _usernameController.text,
+                              ),
+                            ),
+                          );
                         },
                         buttonTitle: 'Get Started',
                       ),
