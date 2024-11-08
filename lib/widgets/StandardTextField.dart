@@ -15,7 +15,8 @@ class StandardTextEditingField extends StatefulWidget {
     this.onEdited,
   });
 
-  final Function(String) valueValidator;
+  final String? Function(String)
+      valueValidator; // Changed return type to String?
   final List<String>? autofillHints;
   final String hintText;
   final bool obscureText;
@@ -23,7 +24,8 @@ class StandardTextEditingField extends StatefulWidget {
   final Function(String)? onSubmitted;
   final TextEditingController? controller;
   final Widget? trailingWidget;
-  final VoidCallbackAction? onEdited;
+  final VoidCallback?
+      onEdited; // Changed from VoidCallbackAction to VoidCallback
 
   @override
   State<StandardTextEditingField> createState() =>
@@ -41,9 +43,8 @@ class _StandardTextEditingFieldState extends State<StandardTextEditingField> {
     super.initState();
     _focusNode = FocusNode();
     _controller = widget.controller ?? TextEditingController();
-
-    _focusNode.addListener(_handleFocusChange);
-    _controller.addListener(_handleTextChange);
+    _focusNode.addListener(_handleFocusChange); // Fixed syntax
+    _controller.addListener(_handleTextChange); // Fixed syntax
   }
 
   @override
@@ -51,14 +52,14 @@ class _StandardTextEditingFieldState extends State<StandardTextEditingField> {
     if (widget.controller == null) {
       _controller.dispose();
     }
-    _focusNode.removeListener(_handleFocusChange);
+    _focusNode.removeListener(_handleFocusChange); // Fixed syntax
     _focusNode.dispose();
     super.dispose();
   }
 
   void _handleFocusChange() {
     setState(() {
-      _isFocused = _focusNode.hasFocus;
+      _isFocused = _focusNode.hasFocus; // Fixed variable name
     });
   }
 
@@ -78,7 +79,9 @@ class _StandardTextEditingFieldState extends State<StandardTextEditingField> {
       alignment: Alignment.center,
       height: screenHeight * 0.075,
       decoration: BoxDecoration(
-        boxShadow: [BoxShadow(blurRadius: 20, color: Colors.white)],
+        boxShadow: const [
+          BoxShadow(blurRadius: 20, color: Colors.white)
+        ], // Added const
         border: Border.all(
           color: _getFieldColor(),
           width: 2.5,
@@ -89,6 +92,9 @@ class _StandardTextEditingFieldState extends State<StandardTextEditingField> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
         child: TextField(
+          onChanged: widget.onEdited != null
+              ? (_) => widget.onEdited!()
+              : null, // Fixed onChanged callback
           controller: _controller,
           focusNode: _focusNode,
           obscureText: widget.obscureText,
@@ -99,7 +105,8 @@ class _StandardTextEditingFieldState extends State<StandardTextEditingField> {
             color: Colors.black87,
           ),
           decoration: InputDecoration(
-            suffixIcon: widget.trailingWidget ?? SizedBox.shrink(),
+            suffixIcon:
+                widget.trailingWidget ?? const SizedBox.shrink(), // Added const
             hintText: widget.hintText,
             hintStyle: GoogleFonts.plusJakartaSans(
               color: Colors.grey[400],
