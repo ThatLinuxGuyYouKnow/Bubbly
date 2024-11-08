@@ -118,12 +118,12 @@ class _ChatNewState extends State<ChatNew> {
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
-            expandedHeight: screenHeight * 0.2,
+            expandedHeight: screenHeight * 0.22,
             pinned: true,
             backgroundColor: Colors.purpleAccent.withOpacity(.02),
             elevation: 0,
             leading: Padding(
-              padding: EdgeInsets.only(left: screenWidth * 0.02),
+              padding: EdgeInsets.only(left: screenWidth * 0.05),
               child: const CustomBackButton(),
             ),
             flexibleSpace: FlexibleSpaceBar(
@@ -140,7 +140,7 @@ class _ChatNewState extends State<ChatNew> {
                     children: [
                       StandardText(
                         textContent: 'New Chat',
-                        textFontSize: 35,
+                        textFontSize: 25,
                         textWeight: FontWeight.bold,
                       ),
                       const SizedBox(width: 8),
@@ -152,7 +152,7 @@ class _ChatNewState extends State<ChatNew> {
                     'Reach out to someone new!',
                     style: GoogleFonts.plusJakartaSans(
                       color: Colors.purple,
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -171,7 +171,7 @@ class _ChatNewState extends State<ChatNew> {
                   SizedBox(height: screenHeight * 0.02),
                   StandardText(
                     textContent: 'Enter frens username',
-                    textFontSize: 22,
+                    textFontSize: 15,
                     textWeight: FontWeight.bold,
                   ),
                   SizedBox(height: screenHeight * 0.02),

@@ -47,14 +47,6 @@ class UserScreen extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.01,
                   ),
-                  Text(
-                    username,
-                    style: GoogleFonts.plusJakartaSans(
-                      color: Colors.purple,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -66,10 +58,13 @@ class UserScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: screenHeight * 0.02),
-                    StandardText(
-                      textContent: 'Username',
-                      textFontSize: 15,
-                      textWeight: FontWeight.bold,
+                    Text(
+                      username,
+                      style: GoogleFonts.plusJakartaSans(
+                        color: Colors.purple,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     SizedBox(height: screenHeight * 0.02),
                     ProfileOptionsTile(
