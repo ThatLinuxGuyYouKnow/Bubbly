@@ -1,3 +1,4 @@
+import 'package:bubbly/chats/chat.dart';
 import 'package:bubbly/users/users.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
 import 'package:bubbly/widgets/backButton.dart';
@@ -176,30 +177,42 @@ class _ChatNewState extends State<ChatNew> {
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   if (_userSelected && _contactNewUsername != null)
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.purple.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.person, color: Colors.purple),
-                          const SizedBox(width: 8),
-                          Text(
-                            _contactNewUsername!,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => Chat(
+                              recipientUsername: _contactNewUsername!,
+                            ),
                           ),
-                          const Spacer(),
-                          IconButton(
-                            icon: const Icon(Icons.close),
-                            onPressed: () => setState(() {
-                              _userSelected = false;
-                              _contactNewUsername = null;
-                            }),
-                          )
-                        ],
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.purple.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.person, color: Colors.purple),
+                            const SizedBox(width: 8),
+                            Text(
+                              _contactNewUsername!,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () => setState(() {
+                                _userSelected = false;
+                                _contactNewUsername = null;
+                              }),
+                            )
+                          ],
+                        ),
                       ),
                     )
                   else

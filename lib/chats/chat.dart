@@ -1,3 +1,4 @@
+import 'package:bubbly/widgets/backButton.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +9,17 @@ class Chat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: const CustomBackButton(),
         title: Text(
-          recipientUsername,
-          style: GoogleFonts.plusJakartaSans(),
+          '@$recipientUsername',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Column(),
+      body: Stack(
+        children: [
+          Column(),
+        ],
+      ),
     );
   }
 }
