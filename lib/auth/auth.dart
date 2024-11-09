@@ -2,13 +2,11 @@ import 'package:bubbly/data/localHandling/localData.dart';
 import 'package:bubbly/data/localHandling/supabaseData.dart';
 import 'package:device_info/device_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:get_storage/get_storage.dart';
 
 ///TODO: Implement validation + local data storage of username
 Future<String> getDeviceID() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  String deviceID =
-      (await deviceInfo.androidInfo).androidId ?? 'Unknown Device ID';
+  String deviceID = (await deviceInfo.androidInfo).androidId;
   return deviceID;
 }
 
@@ -21,12 +19,10 @@ class Auth {
   Future<void> signIn({required String email, required String password}) async {
     final session = supabase.auth.currentUser;
     session != null ? print('User is authed') : print('Who dis?');
-    await GetStorage.init();
-    final box = GetStorage();
 
     try {
       // Await the asynchronous sign-in function
-      final response = await supabase.auth.signInWithPassword(
+      await supabase.auth.signInWithPassword(
         email: email,
         password: password,
       );
@@ -39,9 +35,8 @@ class Auth {
     } catch (error) {
       // Catches any other errors that might occur
       print('Unexpected error: ${error.toString()}');
-      final localData = LocalData();
-      localData.storeEmail(email: email);
     }
+
     final localData = LocalData();
     final supabaseData = SupabaseData();
     localData.storeEmail(email: email);
@@ -83,7 +78,7 @@ class Auth {
   }
 
   signOut() async {
-    final response = await supabase.auth.signOut();
+    await supabase.auth.signOut();
     final data = LocalData();
     data.deleteUserData();
   }

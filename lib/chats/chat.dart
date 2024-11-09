@@ -14,6 +14,7 @@ class Chat extends StatelessWidget {
           style: GoogleFonts.plusJakartaSans(),
         ),
       ),
+      body: Column(),
     );
   }
 }

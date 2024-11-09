@@ -1,3 +1,6 @@
+import 'package:bubbly/chats/chat.dart';
+import 'package:bubbly/data/localHandling/localData.dart';
+import 'package:bubbly/data/localHandling/supabaseData.dart';
 import 'package:bubbly/widgets/chat_preview_tile.dart';
 import 'package:bubbly/widgets/customBottomNavBar.dart';
 import 'package:bubbly/widgets/optionButton.dart';
@@ -7,37 +10,41 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ChatMain extends StatefulWidget {
   const ChatMain({super.key});
-
   @override
   State createState() => _ChatMainState();
 }
 
-class _ChatMainState extends State {
-  final List<Map<String, String>> _sampleChatPreviews = [
-    {
-      'title': 'John Doe',
-      'subtitle': 'Hey, how are you?',
-    },
-    {
-      'title': 'Jane Smith',
-      'subtitle': 'Did you see the latest update?',
-    },
-    {
-      'title': 'Michael Johnson',
-      'subtitle': 'Let’s catch up later today.',
-    },
-    {
-      'title': 'Sarah Williams',
-      'subtitle': 'I’m running late, sorry!',
-    },
-  ];
-
+class _ChatMainState extends State<ChatMain> {
   final ScrollController _scrollController = ScrollController();
+  final SupabaseData _supabaseData = SupabaseData();
+  late Future<List<Map<String, dynamic>>> _conversationsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadConversations();
+  }
+
+  void _loadConversations() {
+    // Replace with actual username and email from your auth state
+    final localData = LocalData();
+    final String username = localData.getUsername();
+    _conversationsFuture = _supabaseData.getConversations(
+      currentUsername: username, // Replace with actual username
+    );
+  }
 
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  String _getOtherParticipant(
+      Map<String, dynamic> conversation, String currentUsername) {
+    return conversation['sender_username'] == currentUsername
+        ? conversation['receiver_username']
+        : conversation['sender_username'];
   }
 
   @override
@@ -107,13 +114,60 @@ class _ChatMainState extends State {
                   left: screenWidth * 0.06,
                   right: screenWidth * 0.06,
                   top: screenHeight * 0.02),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _sampleChatPreviews.map((preview) {
-                  return ChatPreviewTile(
-                    BuildContent: [preview['title']!, preview['subtitle']!],
+              child: FutureBuilder<List<Map<String, dynamic>>>(
+                future: _conversationsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        'Error loading conversations: ${snapshot.error}',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No conversations yet',
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    );
+                  }
+
+                  final localData = LocalData();
+                  final String currentUsername = localData.getUsername();
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: snapshot.data!.map((conversation) {
+                      final otherParticipant =
+                          _getOtherParticipant(conversation, currentUsername);
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => Chat(
+                                      recipientUsername: otherParticipant)));
+                        },
+                        child: ChatPreviewTile(
+                          BuildContent: [
+                            otherParticipant,
+                            conversation['message_content'] ?? 'No message',
+                          ],
+                        ),
+                      );
+                    }).toList(),
                   );
-                }).toList(),
+                },
               ),
             ),
           ),
