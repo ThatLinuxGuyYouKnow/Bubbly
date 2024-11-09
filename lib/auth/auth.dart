@@ -1,4 +1,5 @@
 import 'package:bubbly/data/localHandling/localData.dart';
+import 'package:bubbly/data/localHandling/supabaseData.dart';
 import 'package:device_info/device_info.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:get_storage/get_storage.dart';
@@ -42,7 +43,11 @@ class Auth {
       localData.storeEmail(email: email);
     }
     final localData = LocalData();
+    final supabaseData = SupabaseData();
     localData.storeEmail(email: email);
+    String username =
+        supabaseData.getUsernameFromEmail(email: email).toString();
+    localData.storeUsername(username: username);
     //  localData.storeUsername(username: username);
   }
 

@@ -1,33 +1,51 @@
 import 'package:bubbly/data/localHandling/localData.dart';
-
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseData {
-  registerNewUsername({required String username, required String email}) async {
-    final supabase = Supabase.instance.client;
-    print('email to supabase' + email);
-    print('username to supbase' + username);
-    final data = await supabase
-        .from('users')
-        .upsert({'username': username, 'email': email}).select();
-    final localdata = LocalData();
-    localdata.storeEmail(email: email);
-    localdata.storeUsername(username: username);
+  final _supabase = Supabase.instance.client;
+  final _localData = LocalData();
+
+  Future<void> registerNewUsername({
+    required String username,
+    required String email,
+  }) async {
+    try {
+      await _supabase.from('users').upsert({
+        'username': username.trim(),
+        'email': email.trim(),
+      }).select();
+
+      _localData.storeEmail(email: email);
+      _localData.storeUsername(username: username);
+    } catch (e) {
+      throw Exception('Failed to register username: $e');
+    }
   }
 
   Future<String?> getUsernameFromEmail({required String email}) async {
-    final supabase = Supabase.instance.client;
-    final data = await supabase
-        .from('users')
-        .select('username') // Select the username column
-        .eq('email', email) // Match the email field
-        .maybeSingle(); // Use maybeSingle to get a single result or null if none
+    try {
+      final data = await _supabase
+          .from('users')
+          .select('username')
+          .eq('email', email.trim())
+          .maybeSingle();
 
-    if (data != null && data['username'] != null) {
-      return data['username'] as String;
+      return data?['username'] as String?;
+    } catch (e) {
+      throw Exception('Failed to get username: $e');
     }
-    return null;
+  }
+
+  Future<List<Map<String, dynamic>>> getConversations({
+    required String currentUsername,
+  }) async {
+    try {
+      final data = await _supabase.rpc('get_latest_conversations',
+          params: {'user_username': currentUsername}).select();
+
+      return List<Map<String, dynamic>>.from(data as List);
+    } catch (e) {
+      throw Exception('Failed to get conversations: $e');
+    }
   }
 }
-//
-//testtttd
