@@ -1,5 +1,5 @@
 import 'package:bubbly/data/localHandling/localData.dart';
-import 'package:flutter/material.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseData {
@@ -13,6 +13,20 @@ class SupabaseData {
     final localdata = LocalData();
     localdata.storeEmail(email: email);
     localdata.storeUsername(username: username);
+  }
+
+  Future<String?> getUsernameFromEmail({required String email}) async {
+    final supabase = Supabase.instance.client;
+    final data = await supabase
+        .from('users')
+        .select('username') // Select the username column
+        .eq('email', email) // Match the email field
+        .maybeSingle(); // Use maybeSingle to get a single result or null if none
+
+    if (data != null && data['username'] != null) {
+      return data['username'] as String;
+    }
+    return null;
   }
 }
 //

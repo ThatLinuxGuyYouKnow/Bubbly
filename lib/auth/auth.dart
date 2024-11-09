@@ -41,6 +41,9 @@ class Auth {
       final localData = LocalData();
       localData.storeEmail(email: email);
     }
+    final localData = LocalData();
+    localData.storeEmail(email: email);
+    //  localData.storeUsername(username: username);
   }
 
   /// Use this function to sign up a new user.

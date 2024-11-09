@@ -16,98 +16,101 @@ class CustomBottomNavBar extends StatefulWidget {
 }
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
+  bool edgeOptionPicked = false;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      if (index == 1) {
+        edgeOptionPicked = !edgeOptionPicked;
+      } else {
+        edgeOptionPicked = true;
+      }
+      widget.onTap(index);
+    });
+    if (index == 1 && !edgeOptionPicked) {
+      Navigator.pushNamed(context, '/newchat');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Material(
-      child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).padding.bottom +
-              35, // Increased bottom padding
-          top: 8,
-          left: screenWidth * 0.075,
-          right: screenWidth * 0.075,
-        ),
-        margin: const EdgeInsets.only(bottom: 16), // Added bottom margin
+    return SafeArea(
+      child: Material(
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.8),
-                blurRadius: 30,
-                offset: const Offset(0, 5), // Added shadow offset
-              ),
-            ],
+          color: Colors.white,
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).padding.bottom + 35,
+            top: 8,
+            left: screenWidth * 0.075,
+            right: screenWidth * 0.075,
           ),
-          height: screenHeight * 0.08, // Slightly reduced height
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildNavItem(
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-                label: 'Near You',
-                icon: Icons.online_prediction,
-                isSelected: widget.currentIndex == 0,
-                onTap: () => widget.onTap(0),
-              ),
-              _buildNavItem(
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-                icon: Icons.add,
-                label: 'New Chat',
-                isSelected: widget.currentIndex == 1,
-                onTap: () => Navigator.pushNamed(context, '/newchat'),
-              ),
-              _buildNavItem(
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-                icon: Icons.person,
-                label: 'You',
-                isSelected: widget.currentIndex == 2,
-                onTap: () => widget.onTap(2),
-              ),
-            ],
+          margin: const EdgeInsets.only(bottom: 16),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.8),
+                  blurRadius: 30,
+                  offset: const Offset(0, 5),
+                ),
+              ],
+            ),
+            height: screenHeight * 0.08,
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildNavItem(
+                  icon: Icons.online_prediction,
+                  label: 'Near You',
+                  isSelected: widget.currentIndex == 0,
+                  onTap: () => _onItemTapped(0),
+                ),
+                _buildNavItem(
+                  icon: edgeOptionPicked ? Icons.chat_bubble_sharp : Icons.add,
+                  label: edgeOptionPicked ? 'Chats' : 'New Chat',
+                  isSelected: widget.currentIndex == 1,
+                  onTap: () => _onItemTapped(1),
+                ),
+                _buildNavItem(
+                  icon: Icons.person,
+                  label: 'You',
+                  isSelected: widget.currentIndex == 2,
+                  onTap: () => _onItemTapped(2),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-Widget _buildNavItem({
-  required IconData icon,
-  String? label,
-  required bool isSelected,
-  required VoidCallback onTap,
-  required double screenHeight,
-  required double screenWidth,
-}) {
-  return SafeArea(
-    child: Material(
-      // Added Material widget wrapper
+  Widget _buildNavItem({
+    required IconData icon,
+    String? label,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Material(
       color: Colors.transparent,
       child: InkWell(
-        // Replaced GestureDetector with InkWell
         onTap: onTap,
         borderRadius: BorderRadius.circular(50),
-        child: Container(
-          height: screenHeight * 0.06,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
           padding: EdgeInsets.symmetric(
             horizontal: isSelected ? 20.0 : 12.0,
             vertical: 3.0,
           ),
-          decoration: ShapeDecoration(
+          decoration: BoxDecoration(
             color: isSelected ? Colors.purpleAccent : Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
+            borderRadius: BorderRadius.circular(50),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -131,6 +134,6 @@ Widget _buildNavItem({
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
