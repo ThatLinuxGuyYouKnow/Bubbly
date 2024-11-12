@@ -1,6 +1,7 @@
 import 'package:bubbly/data/localHandling/localData.dart';
 import 'package:bubbly/data/localHandling/supabaseData.dart';
 import 'package:device_info/device_info.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 ///TODO: Implement validation + local data storage of username
@@ -16,10 +17,10 @@ Future<String> getDeviceID() async {
 class Auth {
   final supabase = Supabase.instance.client;
 
-  Future<void> signIn({required String email, required String password}) async {
-    final session = supabase.auth.currentUser;
-    session != null ? print('User is authed') : print('Who dis?');
-
+  Future<void> signIn(
+      {required String email,
+      required String password,
+      required VoidCallback onSuccessfulAuth}) async {
     try {
       // Await the asynchronous sign-in function
       await supabase.auth.signInWithPassword(
@@ -36,7 +37,7 @@ class Auth {
       // Catches any other errors that might occur
       print('Unexpected error: ${error.toString()}');
     }
-
+    onSuccessfulAuth();
     final localData = LocalData();
     final supabaseData = SupabaseData();
     localData.storeEmail(email: email);

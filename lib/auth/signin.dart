@@ -125,16 +125,12 @@ class _SignInState extends State<SignIn> {
                     children: [
                       StandardButton(
                         onButtonTap: () {
-                          try {
-                            print('email controller' + _emailController.text);
-                            auth.signIn(
-                                email: _emailController.text.trim(),
-                                password: passwordController.text.trim());
-                            print('sign in succesful');
-                          } catch (error) {
-                            print(error.toString());
-                          }
-                          Navigator.pushNamed(context, '/homepage');
+                          print('email controller' + _emailController.text);
+                          auth.signIn(
+                              onSuccessfulAuth: () =>
+                                  Navigator.pushNamed(context, '/homepage'),
+                              email: _emailController.text.trim(),
+                              password: passwordController.text.trim());
                         },
                         buttonTitle: 'Get Back In',
                       ),

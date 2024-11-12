@@ -59,7 +59,7 @@ class UserScreen extends StatelessWidget {
                   children: [
                     SizedBox(height: screenHeight * 0.02),
                     Text(
-                      username,
+                      username.toString(),
                       style: GoogleFonts.plusJakartaSans(
                         color: Colors.purple,
                         fontSize: 12,

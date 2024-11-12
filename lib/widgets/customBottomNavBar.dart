@@ -21,14 +21,21 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   void _onItemTapped(int index) {
     setState(() {
       if (index == 1) {
+        // Toggle edgeOptionPicked if the middle item is tapped
         edgeOptionPicked = !edgeOptionPicked;
       } else {
+        // Any other button resets the middle button state
         edgeOptionPicked = true;
       }
       widget.onTap(index);
     });
-    if (index == 1 && !edgeOptionPicked) {
-      Navigator.pushNamed(context, '/newchat');
+
+    // Control the navigation based on edgeOptionPicked
+    if (index == 1 && edgeOptionPicked) {
+      Navigator.pushNamed(context, '/newchat'); // Navigate to New Chat screen
+    } else if (index == 0 || index == 2) {
+      Navigator.pushNamed(context,
+          '/main'); // Navigate to main screen if near you or you is tapped
     }
   }
 
