@@ -23,13 +23,14 @@ class _SignInState extends State<SignIn> {
     super.dispose();
   }
 
+  final TextEditingController passwordController = TextEditingController();
+
+  final TextEditingController _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final TextEditingController passwordController = TextEditingController();
-
-    final TextEditingController _emailController = TextEditingController();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -125,6 +126,7 @@ class _SignInState extends State<SignIn> {
                       StandardButton(
                         onButtonTap: () {
                           try {
+                            print('email controller' + _emailController.text);
                             auth.signIn(
                                 email: _emailController.text.trim(),
                                 password: passwordController.text.trim());
@@ -132,7 +134,7 @@ class _SignInState extends State<SignIn> {
                           } catch (error) {
                             print(error.toString());
                           }
-                          Navigator.pushNamed(context, '/mainchat');
+                          Navigator.pushNamed(context, '/homepage');
                         },
                         buttonTitle: 'Get Back In',
                       ),
@@ -147,7 +149,7 @@ class _SignInState extends State<SignIn> {
                         Text(
                           'Dont have an account?',
                           style: GoogleFonts.plusJakartaSans(
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ),
                         SizedBox(
@@ -155,7 +157,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         Text('Join Us! ',
                             style: GoogleFonts.plusJakartaSans(
-                                fontSize: 17,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,
                                 decorationColor: Colors.purple))

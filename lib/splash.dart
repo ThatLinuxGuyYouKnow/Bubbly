@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:bubbly/auth/auth.dart';
+import 'package:bubbly/data/localHandling/localData.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -28,10 +30,18 @@ class _SplashScreenState extends State<SplashScreen> {
     final session = supabase.auth.currentSession;
 
     // Navigate to the appropriate screen based on user session status
-    Navigator.pushReplacementNamed(
-      context,
-      session != null ? '/homepage' : '/welcomeScreen',
-    );
+    final localData = LocalData();
+    final String username = localData.getUsername();
+    final auth = Auth();
+
+    if (session != null && username == '') {
+      auth.signOut(); //even if the user is authed, as long as username is empty, post them to get authed
+      Navigator.pushReplacementNamed(context, '/welcomeScreen');
+    } else if (session != null && username != '') {
+      Navigator.pushReplacementNamed(context, '/mainchat');
+    } else if (session == null) {
+      Navigator.pushReplacementNamed(context, '/welcomeScreen');
+    }
   }
 
   @override

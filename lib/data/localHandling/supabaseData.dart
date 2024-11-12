@@ -40,9 +40,9 @@ class SupabaseData {
     required String currentUsername,
   }) async {
     try {
-      print('conversations fetched with username' + currentUsername);
+      print('conversations fetched with username' + currentUsername.toString());
       final data = await _supabase.rpc('get_latest_conversations',
-          params: {'user_username': currentUsername}).select();
+          params: {'user_username': currentUsername.toString()}).select();
 
       return List<Map<String, dynamic>>.from(data as List);
     } catch (e) {
@@ -84,6 +84,45 @@ class SupabaseData {
       await _supabase.from('chats').insert(chatData);
     } catch (e) {
       throw Exception('Failed to add chat: $e');
+    }
+  }
+
+  Stream<List<Map<String, dynamic>>> messageStream({
+    required String currentUsername,
+    required String recipientUsername,
+  }) {
+    try {
+      // Using `inFilter` to match either sender or receiver for the given usernames
+      return _supabase
+          .from('chats')
+          .stream(primaryKey: ['id'])
+          .inFilter('sender_username', [currentUsername, recipientUsername])
+          .order('created_at', ascending: true)
+          .map((list) =>
+              list.map((item) => item as Map<String, dynamic>).toList());
+    } catch (e) {
+      print('Error fetching message stream: $e');
+      throw Exception('Failed to get message stream: $e');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getConversationMessages({
+    required String currentUsername,
+    required String recipientUsername,
+    int limit = 20,
+    int offset = 0,
+  }) async {
+    try {
+      final data = await _supabase
+          .from('chats')
+          .select()
+          .or('and(sender_username.eq.$currentUsername,receiver_username.eq.$recipientUsername),and(sender_username.eq.$recipientUsername,receiver_username.eq.$currentUsername)')
+          .order('created_at', ascending: false)
+          .range(offset, offset + limit - 1);
+
+      return List<Map<String, dynamic>>.from(data);
+    } catch (e) {
+      throw Exception('Failed to get messages: $e');
     }
   }
 }

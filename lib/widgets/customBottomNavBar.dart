@@ -43,7 +43,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           color: Colors.white,
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).padding.bottom + 35,
-            top: 8,
+            top: 5,
             left: screenWidth * 0.075,
             right: screenWidth * 0.075,
           ),
@@ -60,7 +60,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 ),
               ],
             ),
-            height: screenHeight * 0.08,
+            height: screenHeight * 0.09,
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,7 +106,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           duration: const Duration(milliseconds: 250),
           padding: EdgeInsets.symmetric(
             horizontal: isSelected ? 20.0 : 12.0,
-            vertical: 3.0,
+            vertical: 10.0,
           ),
           decoration: BoxDecoration(
             color: isSelected ? Colors.purpleAccent : Colors.transparent,

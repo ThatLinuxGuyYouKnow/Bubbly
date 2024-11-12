@@ -1,4 +1,5 @@
 import 'package:bubbly/chats/chat.dart';
+import 'package:bubbly/data/localHandling/supabaseData.dart';
 import 'package:bubbly/users/users.dart';
 import 'package:bubbly/widgets/StandardTextField.dart';
 import 'package:bubbly/widgets/backButton.dart';
@@ -222,10 +223,10 @@ class _ChatNewState extends State<ChatNew> {
                       hintText: '@username',
                       trailingWidget: _isLoading
                           ? const SizedBox(
-                              width: 20,
-                              height: 20,
+                              width: 10,
+                              height: 10,
                               child: CircularProgressIndicator(
-                                strokeWidth: 2,
+                                strokeWidth: 3,
                               ),
                             )
                           : null,
@@ -235,13 +236,22 @@ class _ChatNewState extends State<ChatNew> {
                       onPressed: _showMatchedUsers,
                       child: Text('${_matchedUsers.length} matches found'),
                     ),
-                  SizedBox(height: screenHeight * 0.1),
+                  SizedBox(height: screenHeight * 0.15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       StandardButton(
-                        onButtonTap: () {},
-                        buttonTitle: 'Start A Conversation',
+                        onButtonTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => Chat(
+                                recipientUsername: _contactNewUsername!,
+                              ),
+                            ),
+                          );
+                        },
+                        buttonTitle: 'Start a Conversation',
                       ),
                     ],
                   )
