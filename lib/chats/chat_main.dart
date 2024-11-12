@@ -28,7 +28,7 @@ class _ChatMainState extends State<ChatMain> {
   void _loadConversations() {
     // Replace with actual username and email from your auth state
     final localData = LocalData();
-    final String username = localData.getUsername();
+    final String username = localData.getUsername()!;
     _conversationsFuture = _supabaseData.getConversations(
       currentUsername: username, // Replace with actual username
     );
@@ -143,7 +143,7 @@ class _ChatMainState extends State<ChatMain> {
                   }
 
                   final localData = LocalData();
-                  final String currentUsername = localData.getUsername();
+                  final String currentUsername = localData.getUsername()!;
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

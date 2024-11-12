@@ -30,8 +30,8 @@ class _ChatState extends State<Chat> {
   @override
   void initState() {
     super.initState();
-    _senderEmail = _localData.getUserEmail();
-    _senderUsername = _localData.getUsername();
+    _senderEmail = _localData.getUserEmail()!;
+    _senderUsername = _localData.getUsername()!;
   }
 
   @override

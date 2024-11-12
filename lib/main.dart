@@ -7,6 +7,7 @@ import 'package:bubbly/splash.dart';
 import 'package:bubbly/stacked_screens/homeScreen.dart';
 import 'package:bubbly/welcomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -14,6 +15,7 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
   String supabaseUrl = dotenv.env['SUPABASE_URL']!;
   String supabaseKey = dotenv.env['SUPABASE_ANON_KEY']!;
+  await GetStorage.init('user-data');
   await Supabase.initialize(
     url: supabaseUrl,
     anonKey: supabaseKey,

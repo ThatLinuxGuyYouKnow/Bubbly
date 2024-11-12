@@ -14,8 +14,8 @@ class UserScreen extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final localdata = LocalData();
-    String username = localdata.getUsername();
-    String email = localdata.getUserEmail();
+    String username = localdata.getUsername()!;
+    String email = localdata.getUserEmail()!;
     final auth = Auth();
     return Scaffold(
       backgroundColor: Colors.white,

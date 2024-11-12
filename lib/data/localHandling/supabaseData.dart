@@ -17,6 +17,7 @@ class SupabaseData {
 
       _localData.storeEmail(email: email);
       _localData.storeUsername(username: username);
+      print('username being saved locally' + username);
     } catch (e) {
       throw Exception('Failed to register username: $e');
     }

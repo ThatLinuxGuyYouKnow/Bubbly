@@ -1,30 +1,55 @@
 import 'package:get_storage/get_storage.dart';
 
 class LocalData {
-  storeEmail({required String email}) {
-    final box = GetStorage('user-data');
-    box.write('user-email', email);
+  Future<void> storeEmail({required String email}) async {
+    try {
+      await GetStorage.init('user-data'); // Initialize before using
+      final box = GetStorage('user-data');
+      await box.write('user-email', email);
+    } catch (error) {
+      print('Failed to store email: ${error.toString()}');
+      rethrow;
+    }
   }
 
-  storeUsername({required String username}) {
-    final box = GetStorage('user-data');
-    box.write('username', username);
+  Future<void> storeUsername({required String username}) async {
+    try {
+      await GetStorage.init('user-data'); // Initialize before using
+      final box = GetStorage('user-data');
+      await box.write('username', username);
+    } catch (error) {
+      print('Failed to store username: ${error.toString()}');
+      rethrow;
+    }
   }
 
-  String getUsername() {
-    final box = GetStorage('user-data');
-    String username = box.read('username') ?? '';
-    return username;
+  String? getUsername() {
+    try {
+      final box = GetStorage('user-data');
+      return box.read('username');
+    } catch (error) {
+      print('Failed to get username: ${error.toString()}');
+      return null;
+    }
   }
 
-  String getUserEmail() {
-    final box = GetStorage('user-data');
-    String username = box.read('user-email') ?? '';
-    return username;
+  String? getUserEmail() {
+    try {
+      final box = GetStorage('user-data');
+      return box.read('user-email');
+    } catch (error) {
+      print('Failed to get email: ${error.toString()}');
+      return null;
+    }
   }
 
-  deleteUserData() {
-    final box = GetStorage('user-data');
-    box.erase();
+  Future<void> deleteUserData() async {
+    try {
+      final box = GetStorage('user-data');
+      await box.erase();
+    } catch (error) {
+      print('Failed to delete user data: ${error.toString()}');
+      rethrow;
+    }
   }
 }

@@ -17,70 +17,71 @@ Future<String> getDeviceID() async {
 class Auth {
   final supabase = Supabase.instance.client;
 
-  Future<void> signIn(
-      {required String email,
-      required String password,
-      required VoidCallback onSuccessfulAuth}) async {
+  Future<void> signIn({
+    required String email,
+    required String password,
+    required VoidCallback onSuccessfulAuth,
+  }) async {
     try {
-      // Await the asynchronous sign-in function
-      await supabase.auth.signInWithPassword(
+      // First sign in with Supabase
+      final response = await supabase.auth.signInWithPassword(
         email: email,
         password: password,
       );
-    } on AuthApiException catch (error) {
-      // Handles API-specific errors
-      print('Auth API Error: ${error.message}');
+
+      if (response.user == null) {
+        throw Exception('Sign in failed - no user returned');
+      }
+
+      // Get username from Supabase BEFORE storing local data
+      final supabaseData = SupabaseData();
+      final username = await supabaseData.getUsernameFromEmail(email: email);
+
+      if (username == null || username.isEmpty) {
+        throw Exception('Username not found for email: $email');
+      }
+
+      // Store local data only after confirming we have valid data
+      final localData = LocalData();
+      await localData.storeEmail(email: email);
+      await localData.storeUsername(username: username);
+
+      // Only call success callback after all data is properly stored
+      onSuccessfulAuth();
     } on AuthException catch (error) {
-      // Catches general Supabase auth exceptions
       print('Auth Exception: ${error.message}');
+      rethrow; // Rethrow to handle in UI
     } catch (error) {
-      // Catches any other errors that might occur
       print('Unexpected error: ${error.toString()}');
+      rethrow; // Rethrow to handle in UI
     }
-    onSuccessfulAuth();
-    final localData = LocalData();
-    final supabaseData = SupabaseData();
-    localData.storeEmail(email: email);
-    String username =
-        supabaseData.getUsernameFromEmail(email: email).toString();
-    localData.storeUsername(username: username);
-    //  localData.storeUsername(username: username);
   }
 
-  /// Use this function to sign up a new user.
-  ///
-  /// Takes email and password, already trimmed and validated from the controller.
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> signUp({
+    required String email,
+    required String password,
+  }) async {
     try {
-      print(email + "email sent to supabase");
-      // Await the asynchronous sign-up function
       final response = await supabase.auth.signUp(
         email: email,
         password: password,
       );
 
-      if (response.user != null) {
-        print('Sign-up successful: ${response.user!.id}');
-      } else {
-        print('Sign-up failed: No user created');
+      if (response.user == null) {
+        throw Exception('Sign-up failed - no user created');
       }
-    } on AuthApiException catch (error) {
-      // Handles API-specific errors
-      print('Auth API Error: ${error.message}');
-    } on AuthException catch (error) {
-      // Catches general Supabase auth exceptions
-      print('Auth Exception: ${error.message}');
+
+      final localData = LocalData();
+      await localData.storeEmail(email: email);
     } catch (error) {
-      // Catches any other errors that might occur
-      print('Unexpected error: ${error.toString()}');
+      print('Error during sign up: ${error.toString()}');
+      rethrow;
     }
-    final localData = LocalData();
-    localData.storeEmail(email: email);
   }
 
-  signOut() async {
-    await supabase.auth.signOut();
+  Future<void> signOut() async {
     final data = LocalData();
-    data.deleteUserData();
+    await supabase.auth.signOut();
+    await data.deleteUserData();
   }
 }

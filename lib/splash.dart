@@ -31,14 +31,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Navigate to the appropriate screen based on user session status
     final localData = LocalData();
-    final String username = localData.getUsername();
+    final String username = localData.getUsername() ?? "";
     final auth = Auth();
-
+    print('username on init' + username);
     if (session != null && username == '') {
       auth.signOut(); //even if the user is authed, as long as username is empty, post them to get authed
       Navigator.pushReplacementNamed(context, '/welcomeScreen');
     } else if (session != null && username != '') {
-      Navigator.pushReplacementNamed(context, '/mainchat');
+      Navigator.pushReplacementNamed(context, '/homepage');
     } else if (session == null) {
       Navigator.pushReplacementNamed(context, '/welcomeScreen');
     }
