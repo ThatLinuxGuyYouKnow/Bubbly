@@ -21,26 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
     UserScreen(),
   ];
 
-  void _onNavItemTap(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-
-    if (index == 1 && _edgeOptionPicked) {
-      Navigator.pushNamed(context, '/newchat');
-    } else if (index == 0) {
-      Navigator.pushNamed(context, '/homepage');
-    } else if (index == 2) {
-      Navigator.pushNamed(context, '/you');
-    }
-  }
-
-  void _onEdgeOptionPickedChanged(bool value) {
-    setState(() {
-      _edgeOptionPicked = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,11 +30,21 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _currentIndex,
-        onOption1Selected: () => _currentIndex = 1,
-        onOtption2Selected: () => _currentIndex == 2
-            ? Navigator.pushNamed(context, '/newchat')
-            : _currentIndex = 2,
-        onOption3Selected: () => _currentIndex = 3,
+        onOption1Selected: () {
+          setState(() {
+            _currentIndex = 0;
+          });
+        },
+        onOtption2Selected: () {
+          setState(() {
+            _currentIndex == 1
+                ? Navigator.pushNamed(context, '/newchat')
+                : _currentIndex = 1;
+          });
+        },
+        onOption3Selected: () => setState(() {
+          _currentIndex = 2;
+        }),
       ),
     );
   }

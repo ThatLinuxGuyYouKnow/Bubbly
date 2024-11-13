@@ -59,6 +59,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                   label: 'Near You',
                   isSelected: widget.currentIndex == 0,
                   onTap: () {
+                    edgeOptionPicked = true;
                     widget.onOption1Selected();
                   },
                 ),
@@ -67,14 +68,15 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                         edgeOptionPicked ? Icons.chat_bubble_sharp : Icons.add,
                     label: edgeOptionPicked ? 'Chats' : 'New Chat',
                     isSelected: widget.currentIndex == 1,
-                    onTap: () => widget.onOtption2Selected),
+                    onTap: () => widget.onOtption2Selected()),
                 _buildNavItem(
                   icon: Icons.person,
                   label: 'You',
                   isSelected: widget.currentIndex == 2,
                   onTap: () {
+                    edgeOptionPicked = true;
                     print('edge option3 selected');
-                    widget.onOption3Selected;
+                    widget.onOption3Selected();
                   },
                 ),
               ],
