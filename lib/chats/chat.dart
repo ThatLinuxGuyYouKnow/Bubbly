@@ -65,9 +65,12 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      bottomNavigationBar: ChatHandler(
-        chatController: _chat,
-        onButtonPressed: _handleSendMessage,
+      bottomNavigationBar: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: ChatHandler(
+          chatController: _chat,
+          onButtonPressed: _handleSendMessage,
+        ),
       ),
       appBar: AppBar(
         leading: Padding(
