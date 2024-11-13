@@ -45,7 +45,8 @@ class Auth {
       final localData = LocalData();
       await localData.storeEmail(email: email);
       await localData.storeUsername(username: username);
-
+      print('stored email' + email);
+      print('username' + username);
       // Only call success callback after all data is properly stored
       onSuccessfulAuth();
     } on AuthException catch (error) {

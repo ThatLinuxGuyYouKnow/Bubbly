@@ -5,6 +5,7 @@ import 'package:bubbly/chats/chat_main.dart';
 import 'package:bubbly/chats/chat_new.dart';
 import 'package:bubbly/splash.dart';
 import 'package:bubbly/stacked_screens/homeScreen.dart';
+import 'package:bubbly/stacked_screens/userProfile.dart';
 import 'package:bubbly/welcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -45,7 +46,8 @@ class MyApp extends StatelessWidget {
           '/mainchat': (context) => const ChatMain(),
           '/newchat': (context) => const ChatNew(),
           '/homepage': (context) => const HomeScreen(),
-          '/welcomeScreen': (context) => const WelcomeScreen()
+          '/welcomeScreen': (context) => const WelcomeScreen(),
+          '/you': (context) => UserScreen()
         },
         home: SplashScreen());
   }

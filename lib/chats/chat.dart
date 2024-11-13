@@ -63,16 +63,21 @@ class _ChatState extends State<Chat> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       bottomNavigationBar: ChatHandler(
         chatController: _chat,
         onButtonPressed: _handleSendMessage,
       ),
       appBar: AppBar(
-        leading: const CustomBackButton(),
+        leading: Padding(
+          padding: EdgeInsets.only(left: screenWidth * 0.02),
+          child: const CustomBackButton(),
+        ),
         title: Text(
           '@${widget.recipientUsername}',
-          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold),
+          style: GoogleFonts.plusJakartaSans(
+              fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
       body: StreamBuilder<List<Map<String, dynamic>>>(

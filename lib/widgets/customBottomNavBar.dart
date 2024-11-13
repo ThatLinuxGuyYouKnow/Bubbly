@@ -3,12 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   final int currentIndex;
-  final Function(int) onTap;
-
+  final VoidCallback onOption1Selected;
+  final VoidCallback onOtption2Selected;
+  final VoidCallback onOption3Selected;
   const CustomBottomNavBar({
     Key? key,
     required this.currentIndex,
-    required this.onTap,
+    required this.onOption1Selected,
+    required this.onOtption2Selected,
+    required this.onOption3Selected,
   }) : super(key: key);
 
   @override
@@ -17,27 +20,6 @@ class CustomBottomNavBar extends StatefulWidget {
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   bool edgeOptionPicked = false;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      if (index == 1) {
-        // Toggle edgeOptionPicked if the middle item is tapped
-        edgeOptionPicked = !edgeOptionPicked;
-      } else {
-        // Any other button resets the middle button state
-        edgeOptionPicked = true;
-      }
-      widget.onTap(index);
-    });
-
-    // Control the navigation based on edgeOptionPicked
-    if (index == 1 && edgeOptionPicked) {
-      Navigator.pushNamed(context, '/newchat'); // Navigate to New Chat screen
-    } else if (index == 0 || index == 2) {
-      Navigator.pushNamed(context,
-          '/main'); // Navigate to main screen if near you or you is tapped
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,19 +58,24 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                   icon: Icons.online_prediction,
                   label: 'Near You',
                   isSelected: widget.currentIndex == 0,
-                  onTap: () => _onItemTapped(0),
+                  onTap: () {
+                    widget.onOption1Selected();
+                  },
                 ),
                 _buildNavItem(
-                  icon: edgeOptionPicked ? Icons.chat_bubble_sharp : Icons.add,
-                  label: edgeOptionPicked ? 'Chats' : 'New Chat',
-                  isSelected: widget.currentIndex == 1,
-                  onTap: () => _onItemTapped(1),
-                ),
+                    icon:
+                        edgeOptionPicked ? Icons.chat_bubble_sharp : Icons.add,
+                    label: edgeOptionPicked ? 'Chats' : 'New Chat',
+                    isSelected: widget.currentIndex == 1,
+                    onTap: () => widget.onOtption2Selected),
                 _buildNavItem(
                   icon: Icons.person,
                   label: 'You',
                   isSelected: widget.currentIndex == 2,
-                  onTap: () => _onItemTapped(2),
+                  onTap: () {
+                    print('edge option3 selected');
+                    widget.onOption3Selected;
+                  },
                 ),
               ],
             ),

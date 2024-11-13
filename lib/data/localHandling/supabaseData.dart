@@ -99,8 +99,7 @@ class SupabaseData {
           .stream(primaryKey: ['id'])
           .inFilter('sender_username', [currentUsername, recipientUsername])
           .order('created_at', ascending: true)
-          .map((list) =>
-              list.map((item) => item as Map<String, dynamic>).toList());
+          .map((list) => list.map((item) => item).toList());
     } catch (e) {
       print('Error fetching message stream: $e');
       throw Exception('Failed to get message stream: $e');
