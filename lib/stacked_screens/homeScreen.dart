@@ -51,7 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _currentIndex,
         onOption1Selected: () => _currentIndex = 1,
-        onOtption2Selected: () => _currentIndex = 2,
+        onOtption2Selected: () => _currentIndex == 2
+            ? Navigator.pushNamed(context, '/newchat')
+            : _currentIndex = 2,
         onOption3Selected: () => _currentIndex = 3,
       ),
     );

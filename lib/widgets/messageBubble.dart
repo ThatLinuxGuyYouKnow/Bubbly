@@ -22,7 +22,7 @@ class MessageBubble extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: isMe
-                ? Colors.purpleAccent.withOpacity(0.2)
+                ? Colors.purpleAccent.withOpacity(0.1)
                 : Colors.grey.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
           ),
